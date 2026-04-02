@@ -1,12 +1,25 @@
 # claude-proto
 
-ATProto skills and tools for [Claude Code](https://code.claude.com) — public API access to the AT Protocol ecosystem. No login required.
+Skills for [Claude Code](https://code.claude.com) — slash commands that extend CC with new capabilities.
 
 ## Skills
 
+### [ooda/](ooda/) — Structured reasoning
+
+Forces Boyd's OODA loop (Observe-Orient-Decide-Act) before any code changes. Particularly useful for debugging, where jumping to fixes without understanding the problem creates compounding bugs.
+
+| Skill | Description |
+|-------|-------------|
+| `/ooda` | Work through OODA loop on any task before writing code |
+
+```
+/ooda the admin server restart doesn't work
+/ooda this function is returning null when it shouldn't
+```
+
 ### [bsky/](bsky/) — Bluesky
 
-Browse posts, profiles, threads, and replies using the public Bluesky ATProto XRPC endpoints.
+Browse posts, profiles, threads, and replies using the public Bluesky ATProto XRPC endpoints. No login required.
 
 | Skill | Description |
 |-------|-------------|
@@ -25,32 +38,17 @@ All post/thread/replies commands accept either an `at://` URI or a `bsky.app` UR
 ## Install
 
 ```bash
-# Copy bsky skills + CLI into your Claude Code commands directory
+# Copy skills into your Claude Code commands directory
+cp ooda/ooda.md ~/.claude/commands/
 cp bsky/bsky_cli.py bsky/bsky-*.md ~/.claude/commands/
 ```
 
-Then update the path in each `.md` file to point to wherever you put `bsky_cli.py`.
+For bsky skills, update the path in each `.md` file to point to wherever you put `bsky_cli.py`.
 
 ## Dependencies
 
-Python 3.10+ standard library only (`urllib`, `json`, `re`). No pip packages needed.
-
-## Usage
-
-As Claude Code slash commands:
-```
-/bsky-get-feed lastnpcalex.agency
-/bsky-get-post https://bsky.app/profile/handle/post/rkey
-/bsky-replies at://did:plc:xxx/app.bsky.feed.post/rkey
-/bsky-profile bsky.app --verbose
-```
-
-Or directly from the CLI:
-```bash
-python bsky_cli.py feed lastnpcalex.agency 10
-python bsky_cli.py thread https://bsky.app/profile/handle/post/rkey 6
-python bsky_cli.py url2uri https://bsky.app/profile/handle/post/rkey
-```
+- **ooda**: None (prompt-only skill)
+- **bsky**: Python 3.10+ standard library only (`urllib`, `json`, `re`)
 
 ## License
 
